@@ -1,4 +1,4 @@
-package ru.technocracy.movieflow.ui.theme
+package ru.technocracy.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
