@@ -1,11 +1,7 @@
 pluginManagement {
     repositories {
         google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
+
         }
         mavenCentral()
         gradlePluginPortal()
@@ -24,3 +20,19 @@ dependencyResolutionManagement {
 
 rootProject.name = "MovieFlow"
 include(":app")
+
+// core
+include(":core:domain")
+include(":core:data")
+include(":core:ui")
+include(":core:network")
+include(":core:database")
+include(":core:firebase")
+
+// features
+include(":feature:feed")
+include(":feature:search")
+include(":feature:profile")
+include(":feature:collections")
+include(":feature:details")
+include(":feature:sync")
