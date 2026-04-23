@@ -1,4 +1,4 @@
-package ru.technocracy.movieflow.ui.theme
+package ru.technocracy.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
