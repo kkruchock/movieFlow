@@ -1,8 +1,8 @@
-package ru.technocracy.movieflow.core.network.api.api
+package ru.technocracy.movieflow.core.network.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.technocracy.movieflow.core.network.api.dto.FilmsCollectionResponse
+import ru.technocracy.movieflow.core.network.dto.FilmsCollectionResponse
 
 interface MovieApi {
 

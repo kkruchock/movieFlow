@@ -1,4 +1,4 @@
-package ru.technocracy.movieflow.core.network.api.di
+package ru.technocracy.movieflow.core.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import ru.technocracy.movieflow.core.network.BuildConfig
-import ru.technocracy.movieflow.core.network.api.api.MovieApi
+import ru.technocracy.movieflow.core.network.api.MovieApi
 
 import javax.inject.Singleton
 

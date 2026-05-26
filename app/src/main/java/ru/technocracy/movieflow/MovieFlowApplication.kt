@@ -2,6 +2,7 @@ package ru.technocracy.movieflow
 
 import android.app.Application
 import com.google.firebase.FirebaseApp
+import ru.technocracy.feature.feed.di.CatalogViewModelFactory
 import ru.technocracy.movieflow.di.AppComponent
 import ru.technocracy.movieflow.di.DaggerAppComponent
 import ru.technocracy.movieflow.feature.auth.di.AuthViewModelFactory
@@ -15,6 +16,9 @@ class MovieFlowApplication : Application() {
 
     @Inject
     lateinit var authViewModelFactory: AuthViewModelFactory
+
+    @Inject
+    lateinit var catalogViewModelFactory: CatalogViewModelFactory
 
     override fun onCreate() {
         super.onCreate()

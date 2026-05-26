@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:firebase"))
     implementation(project(":core:domain"))
+    implementation(project(":core:network"))
 
     implementation(libs.compose.bom)
     implementation(libs.navigation.compose)
@@ -67,4 +68,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.firestore.coroutines)
+
+    implementation(libs.okhttp)
+    implementation(libs.retrofit)
 }

@@ -1,4 +1,4 @@
-package ru.technocracy.movieflow.core.network.api.dto
+package ru.technocracy.movieflow.core.network.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -16,7 +16,7 @@ data class FilmPreviewDto(
     @SerialName("nameRu") val nameRu: String?,
     @SerialName("nameEn") val nameEn: String?,
     @SerialName("ratingKinopoisk") val ratingKinopoisk: Double?,
-    val year: String?, // В API это String, в Domain смапим в Int?
+    val year: Int?, // В API это String, в Domain смапим в Int? upd: (обман от апишки, все-таки инт)
     @SerialName("posterUrl") val posterUrl: String?,
     @SerialName("posterUrlPreview") val posterUrlPreview: String?,
     val countries: List<CountryDto>,
