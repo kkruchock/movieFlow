@@ -26,9 +26,7 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:domain"))
-    implementation(project(":core:firebase"))
     implementation(platform(libs.compose.bom))
-    implementation(libs.firebase.auth)
     implementation(libs.compose.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.preview)

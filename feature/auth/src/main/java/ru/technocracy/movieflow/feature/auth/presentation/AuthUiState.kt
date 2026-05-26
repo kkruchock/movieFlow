@@ -1,5 +1,6 @@
 package ru.technocracy.movieflow.feature.auth.presentation
 
+// состяония экрана авторизации
 sealed interface AuthUiState {
     object Idle : AuthUiState
     object Loading : AuthUiState

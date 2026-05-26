@@ -4,9 +4,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
-import jakarta.inject.Singleton
+import javax.inject.Singleton
 import ru.technocracy.movieflow.core.firebase.datasource.FirebaseAuthDataSource
 
+// создание объектов firebase для dagger
 @Module
 class FirebaseModule {
 

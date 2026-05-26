@@ -10,6 +10,7 @@ import ru.technocracy.movieflow.core.domain.model.User
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
+// контракт с firebase
 class FirebaseAuthDataSource @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
@@ -19,7 +20,6 @@ class FirebaseAuthDataSource @Inject constructor(
         auth.signInWithEmailAndPassword(email, password).await()
     }
 
-    //todo убрать харкод
     suspend fun signUp(email: String, password: String): User {
         val result = auth.createUserWithEmailAndPassword(email, password).await()
         val firebaseUser = result.user ?: throw IllegalStateException("User is null after registration")
@@ -59,3 +59,4 @@ class FirebaseAuthDataSource @Inject constructor(
         photoUrl = photoUrl?.toString()
     )
 }
+// todo хардкод

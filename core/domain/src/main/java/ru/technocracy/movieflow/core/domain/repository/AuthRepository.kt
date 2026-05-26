@@ -3,6 +3,7 @@ package ru.technocracy.movieflow.core.domain.repository
 import kotlinx.coroutines.flow.Flow
 import ru.technocracy.movieflow.core.domain.model.User
 
+// контракты для авторизации (реализация в :data)
 interface AuthRepository {
 
     suspend fun signIn(
@@ -18,5 +19,7 @@ interface AuthRepository {
     suspend fun signOut(): Result<Unit>
     fun isLoggedIn(): Boolean
     fun getCurrentUser(): User?
+
+    // реактивный поток состояния авторизации
     fun observeAuthState(): Flow<User?>
 }

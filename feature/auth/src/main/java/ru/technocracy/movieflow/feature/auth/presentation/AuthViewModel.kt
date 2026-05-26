@@ -3,20 +3,17 @@ package ru.technocracy.movieflow.feature.auth.presentation
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.technocracy.movieflow.core.domain.model.AuthError
 import ru.technocracy.movieflow.core.domain.usecase.IsLoggedInUseCase
 import ru.technocracy.movieflow.core.domain.usecase.SignInUseCase
 import ru.technocracy.movieflow.core.domain.usecase.SignUpUseCase
 import javax.inject.Inject
 
-//todo убрать хардкод из калсса (разделить на утилиты? где делать локальную валидацию?)
 class AuthViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val signUpUseCase: SignUpUseCase,
@@ -78,10 +75,13 @@ class AuthViewModel @Inject constructor(
 
     private fun mapFirebaseError(throwable: Throwable): String {
         return when (throwable) {
-            is FirebaseAuthWeakPasswordException -> "Пароль слишком простой"
-            is FirebaseAuthInvalidCredentialsException -> "Неверный email или пароль"
-            is FirebaseAuthUserCollisionException -> "Пользователь с таким email уже зарегистрирован"
+            is AuthError.WeakPassword -> "Пароль слишком простой"
+            is AuthError.InvalidCredentials -> "Неверный email или пароль"
+            is AuthError.UserAlreadyExists -> "Пользователь с таким email уже зарегистрирован"
             else -> throwable.localizedMessage ?: "Ошибка сети. Попробуйте позже"
         }
     }
 }
+
+//todo убрать хардкод
+//todo побить на утилиты
