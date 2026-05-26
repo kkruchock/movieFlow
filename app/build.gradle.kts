@@ -50,9 +50,11 @@ dependencies {
     implementation(project(":feature:collections"))
     implementation(project(":feature:details"))
     implementation(project(":feature:sync"))
+    implementation(project(":feature:auth"))
     implementation(project(":core:ui"))
     implementation(project(":core:data"))
     implementation(project(":core:firebase"))
+    implementation(project(":core:domain"))
 
     implementation(libs.compose.bom)
     implementation(libs.navigation.compose)

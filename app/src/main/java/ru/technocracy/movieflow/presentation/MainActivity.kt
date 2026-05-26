@@ -3,10 +3,18 @@ package ru.technocracy.movieflow.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import ru.technocracy.movieflow.MovieFlowApplication
+import ru.technocracy.movieflow.navigation.AppNavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {}
+
+        val app = application as MovieFlowApplication
+        val factory = app.authViewModelFactory
+
+        setContent {
+            AppNavGraph(viewModelFactory = factory)
+        }
     }
 }
