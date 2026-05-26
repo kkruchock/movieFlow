@@ -1,3 +1,10 @@
+import java.util.Properties
+
+val localProps = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) load(f.inputStream())
+}
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -5,25 +12,24 @@ plugins {
     id("kotlin-kapt")
 }
 
+
 android {
-    namespace = "ru.technocracy.core.network"
+    namespace = "ru.technocracy.movieflow.core.network"
     compileSdk = 35
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         minSdk = 24
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
+        buildConfigField(
+            "String",
+            "KINOPOISK_API_KEY",
+            "\"${localProps.getProperty("kinopoisk.api.key", "")}\""
+        )
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
