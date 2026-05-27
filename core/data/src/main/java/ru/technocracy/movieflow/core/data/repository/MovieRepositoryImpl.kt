@@ -63,4 +63,10 @@ class MovieRepositoryImpl @Inject constructor(
 
         entity.toDetails()
     }
+
+    override suspend fun searchMovies(query: String): Result<List<Movie>> = runCatching {
+        if (query.isBlank()) return@runCatching emptyList()
+        val response = api.searchMovies(keyword = query)
+        response.films.map { it.toDomain() }
+    }
 }
