@@ -7,10 +7,15 @@ import ru.technocracy.movieflow.core.database.converter.ListConverters
 import ru.technocracy.movieflow.core.database.dao.MovieDao
 import ru.technocracy.movieflow.core.database.dao.UserMovieDao
 import ru.technocracy.movieflow.core.database.entity.MovieEntity
+import ru.technocracy.movieflow.core.database.entity.UserMovieEntity
 
 @Database(
-    entities = [MovieEntity::class],
-    version = 2, exportSchema = false
+    entities = [
+        MovieEntity::class,
+        UserMovieEntity::class,
+               ],
+    version = 2,
+    exportSchema = false
 )
 @TypeConverters(
     ListConverters::class
