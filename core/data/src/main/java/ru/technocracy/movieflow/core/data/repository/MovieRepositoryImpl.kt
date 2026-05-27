@@ -1,5 +1,6 @@
 package ru.technocracy.movieflow.core.data.repository
 
+import ru.technocracy.movieflow.core.data.mapper.toDetails
 import ru.technocracy.movieflow.core.database.dao.MovieDao
 import ru.technocracy.movieflow.core.data.mapper.toDomain
 import ru.technocracy.movieflow.core.data.mapper.toEntity
@@ -45,8 +46,21 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    // todo добавить кеш
     override suspend fun getMovieDetails(id: Int): Result<MovieDetails> = runCatching {
-        api.getMovieDetails(id).toDomain()
+        val cached = movieDao.getById(id)
+        val isFullDetailsCached = cached != null
+                && cached.description != null
+                && (System.currentTimeMillis() - cached.cachedAt) < cacheTtl
+
+        if (isFullDetailsCached) {
+            return@runCatching cached.toDetails()
+        }
+
+        val dto = api.getMovieDetails(id)
+        val entity = dto.toEntity()
+
+        movieDao.insert(entity)
+
+        entity.toDetails()
     }
 }

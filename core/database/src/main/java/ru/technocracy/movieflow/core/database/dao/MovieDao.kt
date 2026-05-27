@@ -8,6 +8,11 @@ import ru.technocracy.movieflow.core.database.entity.MovieEntity
 
 @Dao
 interface MovieDao {
+    // одиночная вставка
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(movie: MovieEntity)
+
+    // множественная вставка
     @Insert(onConflict = OnConflictStrategy.REPLACE) // заменяем если уже есть
     suspend fun insertAll(movies: List<MovieEntity>)
 

@@ -37,18 +37,35 @@ fun MovieEntity.toDomain(): Movie = Movie(
     countries = countries
 )
 
-fun FilmDetailsDto.toDomain(): MovieDetails = MovieDetails(
+fun FilmDetailsDto.toEntity(): MovieEntity = MovieEntity(
     id = kinopoiskId,
     title = nameRu ?: nameEn ?: "Без названия",
     titleEn = nameEn,
+    posterUrl = posterUrl,
+    posterUrlPreview = posterUrlPreview,
+    coverUrl = coverUrl,
     rating = ratingKinopoisk,
-    voteCount = ratingKinopoiskVoteCount,
     year = year,
     runtime = filmLength,
+    description = description,
+    slogan = slogan,
+    genres = genres.map { it.genre },
+    countries = countries.map { it.country },
+    cachedAt = System.currentTimeMillis()
+)
+
+fun MovieEntity.toDetails(): MovieDetails = MovieDetails(
+    id = id,
+    title = title,
+    titleEn = titleEn,
+    rating = rating,
+    voteCount = null, // todo переделать схему
+    year = year,
+    runtime = runtime,
     posterUrl = posterUrl,
     coverUrl = coverUrl,
     description = description,
     slogan = slogan,
-    genres = genres.map { it.genre },
-    countries = countries.map { it.country }
+    genres = genres,
+    countries = countries
 )
