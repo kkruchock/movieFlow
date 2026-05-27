@@ -9,6 +9,9 @@ import ru.technocracy.feature.feed.di.CatalogViewModelFactory
 import ru.technocracy.feature.feed.presentation.CatalogScreen
 import ru.technocracy.movieflow.feature.auth.di.AuthViewModelFactory
 import ru.technocracy.movieflow.feature.auth.presentation.AuthScreen
+import ru.technocracy.movieflow.feature.details.di.DetailsViewModelFactory
+import ru.technocracy.movieflow.feature.details.navigation.DetailsRoute
+import ru.technocracy.movieflow.feature.details.navigation.detailsScreen
 
 // todo вынести отдельно sealed
 object AppRoute {
@@ -20,6 +23,7 @@ object AppRoute {
 fun AppNavGraph(
     authViewModelFactory: AuthViewModelFactory,
     catalogViewModelFactory: CatalogViewModelFactory,
+    detailsViewModelFactory: DetailsViewModelFactory,
 ) {
     val navController: NavHostController = rememberNavController()
 
@@ -39,7 +43,15 @@ fun AppNavGraph(
             )
         }
         composable(AppRoute.CATALOG) {
-            CatalogScreen(viewModelFactory = catalogViewModelFactory)
+            CatalogScreen(
+                viewModelFactory = catalogViewModelFactory,
+                onMovieClick = { movieId -> navController.navigate(DetailsRoute.createRoute(movieId)) }
+            )
         }
+
+        detailsScreen(
+            viewModelFactory = detailsViewModelFactory,
+            onBack = { navController.navigateUp() }
+        )
     }
 }

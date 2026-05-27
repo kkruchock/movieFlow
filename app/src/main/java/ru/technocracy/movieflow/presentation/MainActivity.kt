@@ -16,6 +16,7 @@ class MainActivity : ComponentActivity() {
             AppNavGraph(
                 authViewModelFactory = app.authViewModelFactory,
                 catalogViewModelFactory = app.catalogViewModelFactory,
+                detailsViewModelFactory = app.detailsViewModelFactory,
             )
         }
     }

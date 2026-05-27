@@ -14,6 +14,11 @@ interface MovieDao {
     @Query("SELECT * FROM movies")
     suspend fun getAll(): List<MovieEntity>
 
+    // удалить устаревшие
     @Query("DELETE FROM movies WHERE cachedAt < :expirationTime")
     suspend fun deleteExpired(expirationTime: Long)
+
+    // фильм по id
+    @Query("SELECT * FROM movies WHERE id = :id LIMIT 1")
+    suspend fun getById(id: Int): MovieEntity?
 }
