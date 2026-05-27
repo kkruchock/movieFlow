@@ -11,6 +11,7 @@ import ru.technocracy.movieflow.core.network.di.NetworkModule
 import ru.technocracy.movieflow.feature.auth.di.AuthModule
 import ru.technocracy.movieflow.feature.auth.di.AuthViewModelFactory
 import ru.technocracy.movieflow.feature.details.di.DetailsViewModelFactory
+import ru.technocracy.movieflow.feature.search.di.SearchViewModelFactory
 import javax.inject.Singleton
 
 // связываем все модули
@@ -36,4 +37,5 @@ interface AppComponent {
     fun authViewModelFactory(): AuthViewModelFactory
     fun catalogViewModelFactory(): CatalogViewModelFactory
     fun detailsViewModelFactory(): DetailsViewModelFactory
+    fun searchViewModelFactory(): SearchViewModelFactory
 }

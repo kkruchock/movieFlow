@@ -7,6 +7,7 @@ import ru.technocracy.movieflow.di.AppComponent
 import ru.technocracy.movieflow.di.DaggerAppComponent
 import ru.technocracy.movieflow.feature.auth.di.AuthViewModelFactory
 import ru.technocracy.movieflow.feature.details.di.DetailsViewModelFactory
+import ru.technocracy.movieflow.feature.search.di.SearchViewModelFactory
 import javax.inject.Inject
 
 class MovieFlowApplication : Application() {
@@ -19,7 +20,10 @@ class MovieFlowApplication : Application() {
     lateinit var authViewModelFactory: AuthViewModelFactory
     @Inject
     lateinit var catalogViewModelFactory: CatalogViewModelFactory
-    @Inject lateinit var detailsViewModelFactory: DetailsViewModelFactory
+    @Inject
+    lateinit var detailsViewModelFactory: DetailsViewModelFactory
+    @Inject
+    lateinit var searchViewModelFactory: SearchViewModelFactory
 
     override fun onCreate() {
         super.onCreate()
