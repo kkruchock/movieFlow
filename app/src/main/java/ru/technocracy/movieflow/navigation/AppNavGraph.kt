@@ -5,19 +5,21 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ru.technocracy.feature.feed.presentation.HomeScreen
+import ru.technocracy.feature.feed.di.CatalogViewModelFactory
+import ru.technocracy.feature.feed.presentation.CatalogScreen
 import ru.technocracy.movieflow.feature.auth.di.AuthViewModelFactory
 import ru.technocracy.movieflow.feature.auth.presentation.AuthScreen
 
 // todo вынести отдельно sealed
 object AppRoute {
     const val AUTH = "auth"
-    const val HOME = "home"
+    const val CATALOG = "catalog"
 }
 
 @Composable
 fun AppNavGraph(
-    viewModelFactory: AuthViewModelFactory
+    authViewModelFactory: AuthViewModelFactory,
+    catalogViewModelFactory: CatalogViewModelFactory,
 ) {
     val navController: NavHostController = rememberNavController()
 
@@ -29,15 +31,15 @@ fun AppNavGraph(
         composable(AppRoute.AUTH) {
             AuthScreen(
                 onNavigateToHome = {
-                    navController.navigate(AppRoute.HOME) {
+                    navController.navigate(AppRoute.CATALOG) {
                         popUpTo(AppRoute.AUTH) { inclusive = true }
                     }
                 },
-                viewModelFactory = viewModelFactory
+                viewModelFactory = authViewModelFactory
             )
         }
-        composable(AppRoute.HOME) {
-            HomeScreen()
+        composable(AppRoute.CATALOG) {
+            CatalogScreen(viewModelFactory = catalogViewModelFactory)
         }
     }
 }

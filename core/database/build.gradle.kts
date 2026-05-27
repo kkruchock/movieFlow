@@ -6,7 +6,7 @@ plugins {
     id("kotlin-kapt")
 }
 android {
-    namespace = "ru.technocracy.core.database"
+    namespace = "ru.technocracy.movieflow.core.database"
     compileSdk = 35
 
     defaultConfig {
@@ -29,6 +29,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
@@ -39,4 +43,6 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    implementation(libs.kotlinx.serialization.json)
 }

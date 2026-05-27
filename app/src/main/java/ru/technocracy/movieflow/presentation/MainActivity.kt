@@ -11,10 +11,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val app = application as MovieFlowApplication
-        val factory = app.authViewModelFactory
 
         setContent {
-            AppNavGraph(viewModelFactory = factory)
+            AppNavGraph(
+                authViewModelFactory = app.authViewModelFactory,
+                catalogViewModelFactory = app.catalogViewModelFactory,
+            )
         }
     }
 }
