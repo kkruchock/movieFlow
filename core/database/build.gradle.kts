@@ -43,4 +43,6 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    implementation(libs.kotlinx.serialization.json)
 }

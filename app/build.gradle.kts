@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":feature:auth"))
     implementation(project(":core:ui"))
     implementation(project(":core:data"))
+    implementation(project(":core:database"))
     implementation(project(":core:firebase"))
     implementation(project(":core:domain"))
     implementation(project(":core:network"))

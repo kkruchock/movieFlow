@@ -2,6 +2,7 @@ package ru.technocracy.movieflow.di
 
 import dagger.BindsInstance
 import dagger.Component
+import ru.technocracy.movieflow.core.database.di.DatabaseModule
 import ru.technocracy.feature.feed.di.CatalogViewModelFactory
 import ru.technocracy.movieflow.MovieFlowApplication
 import ru.technocracy.movieflow.core.data.di.DataModule
@@ -19,6 +20,8 @@ import javax.inject.Singleton
         DataModule::class,
         AuthModule::class,
         NetworkModule::class,
+        DatabaseModule::class,
+        AppModule::class,
     ]
 )
 interface AppComponent {
