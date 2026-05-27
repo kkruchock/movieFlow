@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.technocracy.movieflow.core.domain.usecase.SearchMovieUseCase
+import ru.technocracy.movieflow.core.domain.usecase.search.SearchMovieUseCase
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(

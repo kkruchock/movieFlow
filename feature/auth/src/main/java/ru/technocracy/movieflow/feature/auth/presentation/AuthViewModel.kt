@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.technocracy.movieflow.core.domain.model.AuthError
-import ru.technocracy.movieflow.core.domain.usecase.IsLoggedInUseCase
-import ru.technocracy.movieflow.core.domain.usecase.SignInUseCase
-import ru.technocracy.movieflow.core.domain.usecase.SignUpUseCase
+import ru.technocracy.movieflow.core.domain.usecase.auth.IsLoggedInUseCase
+import ru.technocracy.movieflow.core.domain.usecase.auth.SignInUseCase
+import ru.technocracy.movieflow.core.domain.usecase.auth.SignUpUseCase
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(

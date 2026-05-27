@@ -1,4 +1,4 @@
-package ru.technocracy.movieflow.core.domain.usecase
+package ru.technocracy.movieflow.core.domain.usecase.auth
 
 import ru.technocracy.movieflow.core.domain.model.User
 import ru.technocracy.movieflow.core.domain.repository.AuthRepository

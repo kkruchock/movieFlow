@@ -1,4 +1,4 @@
-package ru.technocracy.movieflow.core.domain.usecase
+package ru.technocracy.movieflow.core.domain.usecase.movie
 
 import ru.technocracy.movieflow.core.domain.model.Movie
 import ru.technocracy.movieflow.core.domain.repository.MovieRepository
