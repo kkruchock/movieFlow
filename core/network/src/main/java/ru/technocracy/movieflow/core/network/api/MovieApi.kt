@@ -5,6 +5,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.technocracy.movieflow.core.network.dto.FilmDetailsDto
 import ru.technocracy.movieflow.core.network.dto.FilmsCollectionResponse
+import ru.technocracy.movieflow.core.network.dto.SearchResponseDto
 
 interface MovieApi {
 
@@ -18,4 +19,11 @@ interface MovieApi {
     // получить детальную инфу (для экрана фильма)
     @GET("v2.2/films/{id}")
     suspend fun getMovieDetails(@Path("id") id: Int): FilmDetailsDto
+
+    // поиск
+    @GET("v2.1/films/search-by-keyword")
+    suspend fun searchMovies(
+        @Query("keyword") keyword: String,
+        @Query("page") page: Int = 1
+    ): SearchResponseDto
 }

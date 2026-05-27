@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.technocracy.feature.search"
+    namespace = "ru.technocracy.movieflow.feature.search"
     compileSdk = 35
 
     defaultConfig {

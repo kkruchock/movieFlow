@@ -12,6 +12,9 @@ import ru.technocracy.movieflow.feature.auth.presentation.AuthScreen
 import ru.technocracy.movieflow.feature.details.di.DetailsViewModelFactory
 import ru.technocracy.movieflow.feature.details.navigation.DetailsRoute
 import ru.technocracy.movieflow.feature.details.navigation.detailsScreen
+import ru.technocracy.movieflow.feature.search.di.SearchViewModelFactory
+import ru.technocracy.movieflow.feature.search.navigation.SearchRoute
+import ru.technocracy.movieflow.feature.search.navigation.searchScreen
 
 // todo вынести отдельно sealed
 object AppRoute {
@@ -24,6 +27,7 @@ fun AppNavGraph(
     authViewModelFactory: AuthViewModelFactory,
     catalogViewModelFactory: CatalogViewModelFactory,
     detailsViewModelFactory: DetailsViewModelFactory,
+    searchViewModelFactory: SearchViewModelFactory,
 ) {
     val navController: NavHostController = rememberNavController()
 
@@ -45,12 +49,19 @@ fun AppNavGraph(
         composable(AppRoute.CATALOG) {
             CatalogScreen(
                 viewModelFactory = catalogViewModelFactory,
-                onMovieClick = { movieId -> navController.navigate(DetailsRoute.createRoute(movieId)) }
+                onMovieClick = { movieId -> navController.navigate(DetailsRoute.createRoute(movieId))},
+                onNavigateToSearch = { navController.navigate(SearchRoute.ROUTE)},
             )
         }
 
         detailsScreen(
             viewModelFactory = detailsViewModelFactory,
+            onBack = { navController.navigateUp() }
+        )
+
+        searchScreen(
+            viewModelFactory = searchViewModelFactory,
+            onMovieClick = { movieId -> navController.navigate(DetailsRoute.createRoute(movieId)) },
             onBack = { navController.navigateUp() }
         )
     }

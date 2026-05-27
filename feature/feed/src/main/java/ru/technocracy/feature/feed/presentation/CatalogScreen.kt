@@ -3,10 +3,12 @@ package ru.technocracy.feature.feed.presentation
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +25,7 @@ import ru.technocracy.feature.feed.di.CatalogViewModelFactory
 fun CatalogScreen(
     viewModelFactory: CatalogViewModelFactory,
     onMovieClick: (Int) -> Unit,
+    onNavigateToSearch: () -> Unit,
     viewModel: CatalogViewModel = viewModel(factory = viewModelFactory),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -31,6 +34,14 @@ fun CatalogScreen(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        item {
+            Button(
+                onClick = onNavigateToSearch,
+                modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp)
+            ) {
+                Text("Поиск")
+            }
+        }
         when (uiState) {
             is CatalogUiState.Loading -> item {
                 Spacer(modifier = Modifier.height(100.dp))

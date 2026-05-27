@@ -11,4 +11,7 @@ interface MovieRepository {
 
     // получаем детальную инфу о фильме
     suspend fun getMovieDetails(id: Int): Result<MovieDetails>
+
+    // поиск
+    suspend fun searchMovies(query: String): Result<List<Movie>>
 }
