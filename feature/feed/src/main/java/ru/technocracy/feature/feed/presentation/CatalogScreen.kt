@@ -1,5 +1,6 @@
 package ru.technocracy.feature.feed.presentation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -21,7 +22,8 @@ import ru.technocracy.feature.feed.di.CatalogViewModelFactory
 @Composable
 fun CatalogScreen(
     viewModelFactory: CatalogViewModelFactory,
-    viewModel: CatalogViewModel = viewModel(factory = viewModelFactory)
+    onMovieClick: (Int) -> Unit,
+    viewModel: CatalogViewModel = viewModel(factory = viewModelFactory),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -40,7 +42,9 @@ fun CatalogScreen(
             is CatalogUiState.Success -> items((uiState as CatalogUiState.Success).movies) { movie ->
                 Text(
                     text = "${movie.title} (${movie.year})  ${movie.rating}",
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier
+                        .padding(vertical = 8.dp)
+                        .clickable { onMovieClick(movie.id) }
                 )
             }
         }

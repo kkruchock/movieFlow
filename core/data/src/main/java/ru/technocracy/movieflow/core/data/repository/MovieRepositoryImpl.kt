@@ -1,9 +1,11 @@
 package ru.technocracy.movieflow.core.data.repository
 
+import ru.technocracy.movieflow.core.data.mapper.toDetails
 import ru.technocracy.movieflow.core.database.dao.MovieDao
 import ru.technocracy.movieflow.core.data.mapper.toDomain
 import ru.technocracy.movieflow.core.data.mapper.toEntity
 import ru.technocracy.movieflow.core.domain.model.Movie
+import ru.technocracy.movieflow.core.domain.model.MovieDetails
 import ru.technocracy.movieflow.core.domain.repository.MovieRepository
 import ru.technocracy.movieflow.core.network.api.MovieApi
 import javax.inject.Inject
@@ -42,5 +44,23 @@ class MovieRepositoryImpl @Inject constructor(
         entities.map {
             it.toDomain()
         }
+    }
+
+    override suspend fun getMovieDetails(id: Int): Result<MovieDetails> = runCatching {
+        val cached = movieDao.getById(id)
+        val isFullDetailsCached = cached != null
+                && cached.description != null
+                && (System.currentTimeMillis() - cached.cachedAt) < cacheTtl
+
+        if (isFullDetailsCached) {
+            return@runCatching cached.toDetails()
+        }
+
+        val dto = api.getMovieDetails(id)
+        val entity = dto.toEntity()
+
+        movieDao.insert(entity)
+
+        entity.toDetails()
     }
 }
