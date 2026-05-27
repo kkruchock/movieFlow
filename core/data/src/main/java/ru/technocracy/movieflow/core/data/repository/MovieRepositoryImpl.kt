@@ -4,6 +4,7 @@ import ru.technocracy.movieflow.core.database.dao.MovieDao
 import ru.technocracy.movieflow.core.data.mapper.toDomain
 import ru.technocracy.movieflow.core.data.mapper.toEntity
 import ru.technocracy.movieflow.core.domain.model.Movie
+import ru.technocracy.movieflow.core.domain.model.MovieDetails
 import ru.technocracy.movieflow.core.domain.repository.MovieRepository
 import ru.technocracy.movieflow.core.network.api.MovieApi
 import javax.inject.Inject
@@ -42,5 +43,10 @@ class MovieRepositoryImpl @Inject constructor(
         entities.map {
             it.toDomain()
         }
+    }
+
+    // todo добавить кеш
+    override suspend fun getMovieDetails(id: Int): Result<MovieDetails> = runCatching {
+        api.getMovieDetails(id).toDomain()
     }
 }

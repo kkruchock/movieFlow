@@ -2,9 +2,11 @@ package ru.technocracy.movieflow.core.data.mapper
 
 import ru.technocracy.movieflow.core.database.entity.MovieEntity
 import ru.technocracy.movieflow.core.domain.model.Movie
+import ru.technocracy.movieflow.core.domain.model.MovieDetails
+import ru.technocracy.movieflow.core.network.dto.FilmDetailsDto
 import ru.technocracy.movieflow.core.network.dto.FilmPreviewDto
 
-// мапим фильм из апи в movie (сначала в ентити)
+// мапим фильм из апи в ентити
 fun FilmPreviewDto.toEntity(): MovieEntity = MovieEntity(
     id = kinopoiskId,
     title = nameRu ?: nameEn ?: "Без названия",
@@ -22,6 +24,7 @@ fun FilmPreviewDto.toEntity(): MovieEntity = MovieEntity(
     cachedAt = System.currentTimeMillis()
 )
 
+// мапим из ентити в домеин
 fun MovieEntity.toDomain(): Movie = Movie(
     id = id,
     title = title,
@@ -32,4 +35,20 @@ fun MovieEntity.toDomain(): Movie = Movie(
     posterUrlPreview = posterUrlPreview,
     genres = genres,
     countries = countries
+)
+
+fun FilmDetailsDto.toDomain(): MovieDetails = MovieDetails(
+    id = kinopoiskId,
+    title = nameRu ?: nameEn ?: "Без названия",
+    titleEn = nameEn,
+    rating = ratingKinopoisk,
+    voteCount = ratingKinopoiskVoteCount,
+    year = year,
+    runtime = filmLength,
+    posterUrl = posterUrl,
+    coverUrl = coverUrl,
+    description = description,
+    slogan = slogan,
+    genres = genres.map { it.genre },
+    countries = countries.map { it.country }
 )
