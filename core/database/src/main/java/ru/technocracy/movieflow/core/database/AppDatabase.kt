@@ -9,7 +9,7 @@ import ru.technocracy.movieflow.core.database.entity.MovieEntity
 
 @Database(
     entities = [MovieEntity::class],
-    version = 1, exportSchema = true
+    version = 1, exportSchema = false
 )
 @TypeConverters(
     ListConverters::class

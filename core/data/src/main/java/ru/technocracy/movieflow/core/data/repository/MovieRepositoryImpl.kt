@@ -18,7 +18,7 @@ class MovieRepositoryImpl @Inject constructor(
 
     private val cacheTtl = 24.hours.inWholeMilliseconds
 
-    override suspend fun getPopularMovies(page: Int): Result<List<Movie>> = runCatching {
+    override suspend fun getPopularMovies(): Result<List<Movie>> = runCatching {
         val now = System.currentTimeMillis()
         val cached = movieDao.getAll()
         val isCacheValid = cached.isNotEmpty() && (now - cached.first().cachedAt) < cacheTtl
@@ -30,7 +30,7 @@ class MovieRepositoryImpl @Inject constructor(
         }
 
         // кэш невалид - делаем запрос
-        val response = api.getPopularMovies(page = page)
+        val response = api.getPopularMovies(page = 1) // для главной страницы всегда 1
         val entities = response.items.map {
             it.toEntity()
         }

@@ -14,7 +14,7 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(context: Context): AppDatabase =
-        Room.databaseBuilder(context, AppDatabase::class.java, "movieflow_db")
+        Room.databaseBuilder(context, AppDatabase::class.java, "movieflow_db") //todo хардкод
             .fallbackToDestructiveMigration()
             .build()
 

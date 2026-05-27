@@ -6,9 +6,7 @@ import kotlinx.serialization.json.Json
 
 // конвертер (список <-> примитив для рум)
 object ListConverters {
-    private val json = Json {
-        ignoreUnknownKeys = true
-    }
+    private val json = Json
 
     @TypeConverter
     fun fromStringList(value: String): List<String> =

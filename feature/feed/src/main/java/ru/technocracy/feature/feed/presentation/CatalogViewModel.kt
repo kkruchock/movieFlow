@@ -22,7 +22,7 @@ class CatalogViewModel @Inject constructor(
     fun loadMovies() {
         viewModelScope.launch {
             _uiState.update { CatalogUiState.Loading }
-            getPopularMoviesUseCase(1).fold(
+            getPopularMoviesUseCase().fold(
                 onSuccess = { movies -> _uiState.update { CatalogUiState.Success(movies) } },
                 onFailure = { error -> _uiState.update { CatalogUiState.Error(error.localizedMessage ?: "Ошибка загрузки") } }
             )

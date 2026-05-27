@@ -8,7 +8,7 @@ interface MovieApi {
 
     @GET("v2.2/films/collections")
     suspend fun getPopularMovies(
-        @Query("type") type: String = "TOP_POPULAR_MOVIES",
+        @Query("type") type: String = "TOP_POPULAR_MOVIES", //todo хардкод
         @Query("page") page: Int = 1
     ): FilmsCollectionResponse
 }

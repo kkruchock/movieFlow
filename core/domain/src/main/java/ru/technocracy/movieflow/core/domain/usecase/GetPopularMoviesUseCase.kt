@@ -7,6 +7,6 @@ import javax.inject.Inject
 class GetPopularMoviesUseCase @Inject constructor(
     private val movieRepository: MovieRepository
 ) {
-    suspend operator fun invoke(page: Int): Result<List<Movie>> =
-        movieRepository.getPopularMovies(page)
+    suspend operator fun invoke(): Result<List<Movie>> =
+        movieRepository.getPopularMovies()
 }

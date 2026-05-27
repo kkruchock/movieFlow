@@ -47,4 +47,4 @@ fun CatalogScreen(
     }
 }
 
-//todo ui
+//todo ui +коррект when

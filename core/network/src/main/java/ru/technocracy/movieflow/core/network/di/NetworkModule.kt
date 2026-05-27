@@ -46,7 +46,7 @@ class NetworkModule {
         }
 
         return Retrofit.Builder()
-            .baseUrl("https://kinopoiskapiunofficial.tech/api/")
+            .baseUrl("https://kinopoiskapiunofficial.tech/api/") //todo хардкод
             .client(client)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
