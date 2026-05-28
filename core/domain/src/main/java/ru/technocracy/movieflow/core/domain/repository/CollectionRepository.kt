@@ -11,4 +11,5 @@ interface CollectionRepository {
     suspend fun addMovieToCollection(collectionId: String, movieId: Int): Result<Unit>
     suspend fun removeMovieFromCollection(collectionId: String, movieId: Int): Result<Unit>
     suspend fun reorderMoviesInCollection(collectionId: String, movieIds: List<Int>): Result<Unit>
+    suspend fun getPublicCollections(): Result<List<Collection>>
 }

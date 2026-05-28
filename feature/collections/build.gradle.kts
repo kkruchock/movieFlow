@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.technocracy.feature.collections"
+    namespace = "ru.technocracy.movieflow.feature.collections"
     compileSdk = 35
 
     defaultConfig {
@@ -38,9 +38,13 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:domain"))
     implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
     implementation(libs.compose.material3)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.compose)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    implementation(libs.coroutines.android)
+    implementation(libs.reorderable)
+    implementation(libs.coil.compose)
 }

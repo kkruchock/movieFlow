@@ -9,14 +9,17 @@ import ru.technocracy.feature.feed.di.CatalogViewModelFactory
 import ru.technocracy.feature.feed.presentation.CatalogScreen
 import ru.technocracy.movieflow.feature.auth.di.AuthViewModelFactory
 import ru.technocracy.movieflow.feature.auth.presentation.AuthScreen
+import ru.technocracy.movieflow.feature.collections.di.CollectionsViewModelFactory
+import ru.technocracy.movieflow.feature.collections.navigation.CollectionEditRoute
+import ru.technocracy.movieflow.feature.collections.navigation.collectionEditScreen
 import ru.technocracy.movieflow.feature.details.di.DetailsViewModelFactory
 import ru.technocracy.movieflow.feature.details.navigation.DetailsRoute
 import ru.technocracy.movieflow.feature.details.navigation.detailsScreen
 import ru.technocracy.movieflow.feature.search.di.SearchViewModelFactory
 import ru.technocracy.movieflow.feature.search.navigation.SearchRoute
+import ru.technocracy.movieflow.feature.search.navigation.searchPickScreen
 import ru.technocracy.movieflow.feature.search.navigation.searchScreen
 
-// todo вынести отдельно sealed
 object AppRoute {
     const val AUTH = "auth"
     const val CATALOG = "catalog"
@@ -28,9 +31,9 @@ fun AppNavGraph(
     catalogViewModelFactory: CatalogViewModelFactory,
     detailsViewModelFactory: DetailsViewModelFactory,
     searchViewModelFactory: SearchViewModelFactory,
+    collectionsViewModelFactory: CollectionsViewModelFactory,
 ) {
     val navController: NavHostController = rememberNavController()
-
 
     NavHost(
         navController = navController,
@@ -46,11 +49,12 @@ fun AppNavGraph(
                 viewModelFactory = authViewModelFactory
             )
         }
+
         composable(AppRoute.CATALOG) {
             CatalogScreen(
                 viewModelFactory = catalogViewModelFactory,
-                onMovieClick = { movieId -> navController.navigate(DetailsRoute.createRoute(movieId))},
-                onNavigateToSearch = { navController.navigate(SearchRoute.ROUTE)},
+                onMovieClick = { movieId -> navController.navigate(DetailsRoute.createRoute(movieId)) },
+                onNavigateToSearch = { navController.navigate(SearchRoute.ROUTE) }
             )
         }
 
@@ -62,6 +66,23 @@ fun AppNavGraph(
         searchScreen(
             viewModelFactory = searchViewModelFactory,
             onMovieClick = { movieId -> navController.navigate(DetailsRoute.createRoute(movieId)) },
+            onBack = { navController.navigateUp() }
+        )
+
+        collectionEditScreen(
+            viewModelFactory = collectionsViewModelFactory,
+            onBack = { navController.navigateUp() },
+            onPickMovie = { navController.navigate("search_pick") }
+        )
+
+        searchPickScreen(
+            viewModelFactory = searchViewModelFactory,
+            onMoviePicked = { movieId ->
+                navController.previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.set("picked_movie_id", movieId)
+                navController.popBackStack()
+            },
             onBack = { navController.navigateUp() }
         )
     }

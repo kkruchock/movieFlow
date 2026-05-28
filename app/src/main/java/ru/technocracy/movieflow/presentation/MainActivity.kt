@@ -18,6 +18,7 @@ class MainActivity : ComponentActivity() {
                 catalogViewModelFactory = app.catalogViewModelFactory,
                 detailsViewModelFactory = app.detailsViewModelFactory,
                 searchViewModelFactory = app.searchViewModelFactory,
+                collectionsViewModelFactory = app.collectionsViewModelFactory,
             )
         }
     }

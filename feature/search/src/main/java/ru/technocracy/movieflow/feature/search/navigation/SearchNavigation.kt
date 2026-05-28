@@ -22,3 +22,17 @@ fun NavGraphBuilder.searchScreen(
         )
     }
 }
+
+fun NavGraphBuilder.searchPickScreen(
+    viewModelFactory: SearchViewModelFactory,
+    onMoviePicked: (Int) -> Unit,
+    onBack: () -> Unit
+) {
+    composable("search_pick") {
+        SearchScreen(
+            viewModelFactory = viewModelFactory,
+            onMovieClick = onMoviePicked,
+            onBack = onBack
+        )
+    }
+}

@@ -85,4 +85,11 @@ class CollectionRepositoryImpl @Inject constructor(
         collectionMovieDao.reorderMovies(collectionId, movieIds)
         collectionDao.update(collectionDao.getById(collectionId)!!.copy(updatedAt = System.currentTimeMillis()))
     }
+
+    override suspend fun getPublicCollections(): Result<List<Collection>> = runCatching {
+        collectionDao.getPublicCollections(limit = 50).map { entity ->
+            val movieIds = collectionMovieDao.getMovieIds(entity.id)
+            entity.toDomain(movieIds)
+        }
+    }
 }
