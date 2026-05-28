@@ -4,8 +4,12 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ru.technocracy.movieflow.core.database.converter.ListConverters
+import ru.technocracy.movieflow.core.database.dao.CollectionDao
+import ru.technocracy.movieflow.core.database.dao.CollectionMovieDao
 import ru.technocracy.movieflow.core.database.dao.MovieDao
 import ru.technocracy.movieflow.core.database.dao.UserMovieDao
+import ru.technocracy.movieflow.core.database.entity.CollectionEntity
+import ru.technocracy.movieflow.core.database.entity.CollectionMovieEntity
 import ru.technocracy.movieflow.core.database.entity.MovieEntity
 import ru.technocracy.movieflow.core.database.entity.UserMovieEntity
 
@@ -13,8 +17,10 @@ import ru.technocracy.movieflow.core.database.entity.UserMovieEntity
     entities = [
         MovieEntity::class,
         UserMovieEntity::class,
+        CollectionEntity::class,
+        CollectionMovieEntity::class,
                ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(
@@ -23,4 +29,6 @@ import ru.technocracy.movieflow.core.database.entity.UserMovieEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
     abstract fun userMovieDao(): UserMovieDao
+    abstract fun collectionDao(): CollectionDao
+    abstract fun collectionMovieDao(): CollectionMovieDao
 }
