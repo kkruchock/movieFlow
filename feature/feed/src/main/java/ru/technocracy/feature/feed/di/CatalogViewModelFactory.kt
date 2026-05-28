@@ -3,7 +3,7 @@ package ru.technocracy.feature.feed.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.technocracy.feature.feed.presentation.CatalogViewModel
-import ru.technocracy.movieflow.core.domain.usecase.GetPopularMoviesUseCase
+import ru.technocracy.movieflow.core.domain.usecase.movie.GetPopularMoviesUseCase
 import javax.inject.Inject
 
 class CatalogViewModelFactory @Inject constructor(

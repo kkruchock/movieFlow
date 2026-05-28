@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.technocracy.movieflow.core.domain.usecase.GetPopularMoviesUseCase
+import ru.technocracy.movieflow.core.domain.usecase.movie.GetPopularMoviesUseCase
 import javax.inject.Inject
 
 class CatalogViewModel @Inject constructor(

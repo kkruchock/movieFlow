@@ -2,9 +2,9 @@ package ru.technocracy.movieflow.feature.auth.di
 
 import dagger.Module
 import dagger.Provides
-import ru.technocracy.movieflow.core.domain.usecase.IsLoggedInUseCase
-import ru.technocracy.movieflow.core.domain.usecase.SignInUseCase
-import ru.technocracy.movieflow.core.domain.usecase.SignUpUseCase
+import ru.technocracy.movieflow.core.domain.usecase.auth.IsLoggedInUseCase
+import ru.technocracy.movieflow.core.domain.usecase.auth.SignInUseCase
+import ru.technocracy.movieflow.core.domain.usecase.auth.SignUpUseCase
 
 // для фабрики
 @Module

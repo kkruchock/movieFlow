@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import ru.technocracy.movieflow.core.database.AppDatabase
 import ru.technocracy.movieflow.core.database.dao.MovieDao
+import ru.technocracy.movieflow.core.database.dao.UserMovieDao
 import javax.inject.Singleton
 
 @Module
@@ -21,4 +22,7 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideMovieDao(db: AppDatabase): MovieDao = db.movieDao()
+
+    @Provides @Singleton
+    fun provideUserMovieDao(db: AppDatabase): UserMovieDao = db.userMovieDao()
 }

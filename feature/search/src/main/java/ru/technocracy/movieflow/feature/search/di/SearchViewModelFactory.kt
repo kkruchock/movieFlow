@@ -2,7 +2,7 @@ package ru.technocracy.movieflow.feature.search.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.technocracy.movieflow.core.domain.usecase.SearchMovieUseCase
+import ru.technocracy.movieflow.core.domain.usecase.search.SearchMovieUseCase
 import ru.technocracy.movieflow.feature.search.presentation.SearchViewModel
 import javax.inject.Inject
 
