@@ -3,9 +3,11 @@ package ru.technocracy.movieflow.core.data.di
 import dagger.Binds
 import dagger.Module
 import ru.technocracy.movieflow.core.data.repository.AuthRepositoryImpl
+import ru.technocracy.movieflow.core.data.repository.CollectionRepositoryImpl
 import ru.technocracy.movieflow.core.data.repository.MovieRepositoryImpl
 import ru.technocracy.movieflow.core.data.repository.UserDataRepositoryImpl
 import ru.technocracy.movieflow.core.domain.repository.AuthRepository
+import ru.technocracy.movieflow.core.domain.repository.CollectionRepository
 import ru.technocracy.movieflow.core.domain.repository.MovieRepository
 import ru.technocracy.movieflow.core.domain.repository.UserDataRepository
 
@@ -26,4 +28,8 @@ abstract class DataModule{
     @Binds abstract fun bindUserDataRepository(
         impl: UserDataRepositoryImpl
     ): UserDataRepository
+
+    @Binds abstract fun bindCollectionRepository(
+        impl: CollectionRepositoryImpl
+    ): CollectionRepository
 }
