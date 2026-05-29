@@ -38,9 +38,13 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:domain"))
     implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
     implementation(libs.compose.material3)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.compose)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    implementation(libs.coroutines.android)
+    implementation(libs.coil.compose)
+    implementation(libs.compose.icons.extended)
 }

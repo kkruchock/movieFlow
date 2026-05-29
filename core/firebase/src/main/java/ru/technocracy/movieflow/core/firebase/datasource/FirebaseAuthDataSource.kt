@@ -10,11 +10,14 @@ import ru.technocracy.movieflow.core.domain.model.User
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-// контракт с firebase
 class FirebaseAuthDataSource @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
 ) {
+
+    companion object {
+        private const val USERS_COLLECTION = "users"
+    }
 
     suspend fun signIn(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).await()
@@ -30,7 +33,7 @@ class FirebaseAuthDataSource @Inject constructor(
             "photoUrl" to firebaseUser.photoUrl?.toString(),
             "createdAt" to System.currentTimeMillis()
         )
-        firestore.collection("users").document(firebaseUser.uid).set(userDoc).await()
+        firestore.collection(USERS_COLLECTION).document(firebaseUser.uid).set(userDoc).await()
 
         return firebaseUser.toDomain()
     }
@@ -59,4 +62,3 @@ class FirebaseAuthDataSource @Inject constructor(
         photoUrl = photoUrl?.toString()
     )
 }
-// todo хардкод

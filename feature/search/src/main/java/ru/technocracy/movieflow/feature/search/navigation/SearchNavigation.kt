@@ -12,7 +12,7 @@ object SearchRoute {
 fun NavGraphBuilder.searchScreen(
     viewModelFactory: SearchViewModelFactory,
     onMovieClick: (Int) -> Unit,
-    onBack: () -> Unit
+    onBack: (() -> Unit)? = null
 ) {
     composable(SearchRoute.ROUTE) {
         SearchScreen(

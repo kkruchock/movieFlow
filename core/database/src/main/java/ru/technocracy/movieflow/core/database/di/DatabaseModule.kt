@@ -14,10 +14,14 @@ import javax.inject.Singleton
 @Module
 class DatabaseModule {
 
+    companion object {
+        private const val DATABASE_NAME = "movieflow_db"
+    }
+
     @Provides
     @Singleton
     fun provideAppDatabase(context: Context): AppDatabase =
-        Room.databaseBuilder(context, AppDatabase::class.java, "movieflow_db") //todo хардкод
+        Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .build()
 

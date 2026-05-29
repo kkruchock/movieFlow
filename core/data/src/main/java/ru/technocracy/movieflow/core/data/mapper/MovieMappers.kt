@@ -6,10 +6,9 @@ import ru.technocracy.movieflow.core.domain.model.MovieDetails
 import ru.technocracy.movieflow.core.network.dto.FilmDetailsDto
 import ru.technocracy.movieflow.core.network.dto.FilmPreviewDto
 
-// мапим фильм из апи в ентити
 fun FilmPreviewDto.toEntity(): MovieEntity = MovieEntity(
     id = kinopoiskId,
-    title = nameRu ?: nameEn ?: "Без названия",
+    title = nameRu ?: nameEn ?: "",
     titleEn = nameEn,
     posterUrl = posterUrl,
     posterUrlPreview = posterUrlPreview,
@@ -24,7 +23,6 @@ fun FilmPreviewDto.toEntity(): MovieEntity = MovieEntity(
     cachedAt = System.currentTimeMillis()
 )
 
-// мапим из ентити в домеин
 fun MovieEntity.toDomain(): Movie = Movie(
     id = id,
     title = title,
@@ -39,7 +37,7 @@ fun MovieEntity.toDomain(): Movie = Movie(
 
 fun FilmDetailsDto.toEntity(): MovieEntity = MovieEntity(
     id = kinopoiskId,
-    title = nameRu ?: nameEn ?: "Без названия",
+    title = nameRu ?: nameEn ?: "",
     titleEn = nameEn,
     posterUrl = posterUrl,
     posterUrlPreview = posterUrlPreview,
@@ -59,7 +57,7 @@ fun MovieEntity.toDetails(): MovieDetails = MovieDetails(
     title = title,
     titleEn = titleEn,
     rating = rating,
-    voteCount = null, // todo переделать схему
+    voteCount = null,
     year = year,
     runtime = runtime,
     posterUrl = posterUrl,

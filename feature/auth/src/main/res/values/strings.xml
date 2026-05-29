@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_subtitle_login">Трекер фильмов и сериалов</string>
+    <string name="auth_subtitle_register">Создайте аккаунт</string>
+    <string name="auth_hint_email">Электронная почта</string>
+    <string name="auth_hint_password">Пароль</string>
+    <string name="auth_hint_confirm_password">Повторите пароль</string>
+    <string name="auth_error_passwords_mismatch">Пароли не совпадают</string>
+    <string name="auth_button_sign_in">Войти</string>
+    <string name="auth_button_sign_up">Регистрация</string>
+    <string name="auth_no_account">Нет аккаунта? </string>
+    <string name="auth_has_account">Уже есть аккаунт? </string>
+    <string name="auth_link_sign_up">Регистрация</string>
+    <string name="auth_link_sign_in">Вход</string>
+
+    <string name="error_invalid_email">Неверный формат email</string>
+    <string name="error_weak_password">Пароль должен содержать минимум 6 символов</string>
+    <string name="error_invalid_credentials">Неверный email или пароль</string>
+    <string name="error_user_exists">Пользователь с таким email уже зарегистрирован</string>
+    <string name="error_network">Ошибка сети. Попробуйте позже</string>
+
+    <string name="app_name">Movie Flow</string>
+</resources>

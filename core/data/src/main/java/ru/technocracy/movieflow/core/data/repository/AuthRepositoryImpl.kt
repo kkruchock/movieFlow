@@ -11,7 +11,6 @@ import ru.technocracy.movieflow.core.firebase.datasource.FirebaseAuthDataSource
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// реализация репозитория (связываем репо и firebase, кидаем правильные ошибки)
 @Singleton
 class AuthRepositoryImpl @Inject constructor(
     private val dataSource: FirebaseAuthDataSource
@@ -35,7 +34,7 @@ class AuthRepositoryImpl @Inject constructor(
         is FirebaseAuthWeakPasswordException -> AuthError.WeakPassword()
         is FirebaseAuthInvalidCredentialsException -> AuthError.InvalidCredentials()
         is FirebaseAuthUserCollisionException -> AuthError.UserAlreadyExists()
-        else -> AuthError.Unknown(throwable.message ?: "Неизвестная ошибка")
+        else -> AuthError.Unknown(throwable.message ?: "Unknown error")
     }
 
     override suspend fun signOut(): Result<Unit> = runCatching {
@@ -48,5 +47,3 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun observeAuthState(): Flow<User?> = dataSource.observeAuthState()
 }
-
-// todo хардкод строк

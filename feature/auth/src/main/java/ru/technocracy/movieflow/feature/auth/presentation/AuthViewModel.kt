@@ -8,10 +8,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.technocracy.movieflow.core.ui.UiText
 import ru.technocracy.movieflow.core.domain.model.AuthError
 import ru.technocracy.movieflow.core.domain.usecase.auth.IsLoggedInUseCase
 import ru.technocracy.movieflow.core.domain.usecase.auth.SignInUseCase
 import ru.technocracy.movieflow.core.domain.usecase.auth.SignUpUseCase
+import ru.technocracy.movieflow.feature.auth.R
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
@@ -23,7 +25,10 @@ class AuthViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<AuthUiState>(AuthUiState.Idle)
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
-    //при создании проверяем авторизован ли пользователь
+    companion object {
+        private const val MIN_PASSWORD_LENGTH = 6
+    }
+
     init {
         if (isLoggedInUseCase()) {
             _uiState.update { AuthUiState.NavigateToHome }
@@ -46,15 +51,15 @@ class AuthViewModel @Inject constructor(
 
     private fun validateInput(email: String, password: String): Boolean {
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        val isPasswordValid = password.length >= 6
+        val isPasswordValid = password.length >= MIN_PASSWORD_LENGTH
 
         return when {
             !isEmailValid -> {
-                _uiState.update { AuthUiState.Error("Неверный формат email") }
+                _uiState.update { AuthUiState.Error(UiText.Resource(R.string.error_invalid_email)) }
                 false
             }
             !isPasswordValid -> {
-                _uiState.update { AuthUiState.Error("Пароль должен содержать минимум 6 символов") }
+                _uiState.update { AuthUiState.Error(UiText.Resource(R.string.error_weak_password)) }
                 false
             }
             else -> true
@@ -67,21 +72,18 @@ class AuthViewModel @Inject constructor(
             action().fold(
                 onSuccess = { _uiState.update { AuthUiState.NavigateToHome } },
                 onFailure = { exception ->
-                    _uiState.update { AuthUiState.Error(mapFirebaseError(exception)) }
+                    _uiState.update { AuthUiState.Error(mapAuthError(exception)) }
                 }
             )
         }
     }
 
-    private fun mapFirebaseError(throwable: Throwable): String {
-        return when (throwable) {
-            is AuthError.WeakPassword -> "Пароль слишком простой"
-            is AuthError.InvalidCredentials -> "Неверный email или пароль"
-            is AuthError.UserAlreadyExists -> "Пользователь с таким email уже зарегистрирован"
-            else -> throwable.localizedMessage ?: "Ошибка сети. Попробуйте позже"
-        }
+    private fun mapAuthError(throwable: Throwable): UiText = when (throwable) {
+        is AuthError.WeakPassword -> UiText.Resource(R.string.error_weak_password)
+        is AuthError.InvalidCredentials -> UiText.Resource(R.string.error_invalid_credentials)
+        is AuthError.UserAlreadyExists -> UiText.Resource(R.string.error_user_exists)
+        else -> throwable.localizedMessage
+            ?.let { UiText.Dynamic(it) }
+            ?: UiText.Resource(R.string.error_network)
     }
 }
-
-//todo убрать хардкод
-//todo побить на утилиты

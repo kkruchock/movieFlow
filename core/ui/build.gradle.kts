@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.technocracy.core.ui"
+    namespace = "ru.technocracy.movieflow.core.ui"
     compileSdk = 35
 
     defaultConfig {

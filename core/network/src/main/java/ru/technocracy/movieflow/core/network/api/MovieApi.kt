@@ -9,11 +9,15 @@ import ru.technocracy.movieflow.core.network.dto.SearchResponseDto
 
 interface MovieApi {
 
-    // получить коллекцию (для ленты)
+    companion object {
+        const val COLLECTION_TYPE_POPULAR = "TOP_POPULAR_MOVIES"
+        const val FIRST_PAGE = 1
+    }
+
     @GET("v2.2/films/collections")
     suspend fun getPopularMovies(
-        @Query("type") type: String = "TOP_POPULAR_MOVIES", //todo хардкод
-        @Query("page") page: Int = 1
+        @Query("type") type: String = COLLECTION_TYPE_POPULAR,
+        @Query("page") page: Int = FIRST_PAGE
     ): FilmsCollectionResponse
 
     // получить детальную инфу (для экрана фильма)

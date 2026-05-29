@@ -43,4 +43,5 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    implementation(libs.coil.compose)
 }

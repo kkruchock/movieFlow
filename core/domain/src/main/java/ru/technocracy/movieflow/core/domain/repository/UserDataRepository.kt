@@ -8,4 +8,5 @@ interface UserDataRepository {
     suspend fun togglePlanned(movieId: Int): Result<Unit>
     suspend fun toggleWatched(movieId: Int): Result<Unit>
     suspend fun setRating(movieId: Int, rating: Int): Result<Unit>
+    suspend fun getAllUserMovieActions(): Result<List<UserMovieAction>>
 }

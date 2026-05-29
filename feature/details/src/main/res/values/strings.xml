@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_watchlist">Буду смотреть</string>
+    <string name="action_watched">Смотрел</string>
+    <string name="action_rate">Оценить</string>
+    <string name="action_add_to_collection">В подборку</string>
+    <string name="cd_favorite">Избранное</string>
+    <string name="section_about">О фильме</string>
+    <string name="no_description">Описание отсутствует</string>
+    <string name="dialog_your_rating">Ваша оценка</string>
+    <string name="dialog_add_to_collection">Добавить в подборку</string>
+    <string name="no_user_collections">У вас пока нет подборок</string>
+    <string name="movies_count">%d фильмов</string>
+    <string name="error_loading">Ошибка загрузки</string>
+</resources>

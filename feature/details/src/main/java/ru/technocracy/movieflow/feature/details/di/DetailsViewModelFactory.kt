@@ -2,6 +2,9 @@ package ru.technocracy.movieflow.feature.details.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import ru.technocracy.movieflow.core.domain.usecase.auth.GetCurrentUserUseCase
+import ru.technocracy.movieflow.core.domain.usecase.collection.AddMovieToCollectionUseCase
+import ru.technocracy.movieflow.core.domain.usecase.collection.GetUserCollectionsUseCase
 import ru.technocracy.movieflow.core.domain.usecase.movie.GetMovieDetailsUseCase
 import ru.technocracy.movieflow.core.domain.usecase.userAction.GetUserMovieActionUseCase
 import ru.technocracy.movieflow.core.domain.usecase.userAction.SetRatingUseCase
@@ -17,9 +20,11 @@ class DetailsViewModelFactory @Inject constructor(
     private val toggleFavorite: ToggleFavoriteUseCase,
     private val togglePlanned: TogglePlannedUseCase,
     private val toggleWatched: ToggleWatchedUseCase,
-    private val setRating: SetRatingUseCase
-) : ViewModelProvider.Factory {
-
+    private val setRating: SetRatingUseCase,
+    private val getUserCollections: GetUserCollectionsUseCase,
+    private val addMovieToCollection: AddMovieToCollectionUseCase,
+    private val getCurrentUser: GetCurrentUserUseCase
+) {
     fun createWithId(movieId: Int): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
@@ -30,7 +35,10 @@ class DetailsViewModelFactory @Inject constructor(
                 toggleFavorite,
                 togglePlanned,
                 toggleWatched,
-                setRating
+                setRating,
+                getUserCollections,
+                addMovieToCollection,
+                getCurrentUser
             ) as T
     }
 }

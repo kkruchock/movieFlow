@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CollectionsListScreen -->
+    <string name="screen_collections">Подборки</string>
+    <string name="cd_create_collection">Создать подборку</string>
+    <string name="tab_my_collections">Мои</string>
+    <string name="tab_public_collections">Публичные</string>
+    <string name="no_my_collections">У вас нет подборок</string>
+    <string name="no_public_collections">Нет публичных подборок</string>
+    <string name="movies_count">%d фильмов</string>
+
+    <!-- CollectionDetailScreen -->
+    <string name="cd_menu">Меню</string>
+    <string name="dialog_delete_collection_title">Удалить подборку?</string>
+    <string name="dialog_delete_collection_message">Действие нельзя отменить.</string>
+    <string name="cd_add_movie">Добавить фильм</string>
+    <string name="collection_public">Публичная</string>
+    <string name="collection_private">Приватная</string>
+    <string name="section_movies_count">Фильмы • %d</string>
+    <string name="action_collapse">Свернуть</string>
+    <string name="action_show_all">Посмотреть все %d</string>
+    <string name="cd_remove_movie">Убрать</string>
+    <string name="cd_drag_handle">Перетащить</string>
+
+    <!-- CollectionEditScreen -->
+    <string name="title_edit_collection">Редактировать подборку</string>
+    <string name="title_new_collection">Новая подборка</string>
+    <string name="collection_cover_placeholder">Обложка</string>
+    <string name="label_collection_name">Название *</string>
+    <string name="label_collection_description">Описание</string>
+    <string name="label_public_collection">Публичная подборка</string>
+    <string name="hint_public_collection">Другие пользователи смогут её видеть</string>
+    <string name="section_movies">Фильмы</string>
+    <string name="no_movies_in_collection">Нет добавленных фильмов</string>
+    <string name="action_add_movie">Добавить фильм</string>
+    <string name="error_collection_name_blank">Название не может быть пустым</string>
+    <string name="error_delete">Ошибка удаления</string>
+</resources>

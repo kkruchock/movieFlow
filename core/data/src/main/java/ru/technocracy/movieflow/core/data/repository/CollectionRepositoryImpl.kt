@@ -18,6 +18,10 @@ class CollectionRepositoryImpl @Inject constructor(
     private val authRepository: AuthRepository
 ) : CollectionRepository {
 
+    companion object {
+        private const val PUBLIC_COLLECTIONS_LIMIT = 50
+    }
+
     private val currentUserId: String
         get() = authRepository.getCurrentUser()?.uid ?: throw IllegalStateException("User not authenticated")
 
@@ -71,23 +75,29 @@ class CollectionRepositoryImpl @Inject constructor(
         if (collectionMovieDao.exists(collectionId, movieId)) return@runCatching
         val currentIds = collectionMovieDao.getMovieIds(collectionId)
         collectionMovieDao.insert(CollectionMovieEntity(collectionId, movieId, currentIds.size))
-        collectionDao.update(collectionDao.getById(collectionId)!!.copy(updatedAt = System.currentTimeMillis()))
+        val collection = collectionDao.getById(collectionId)
+            ?: throw IllegalStateException("Collection $collectionId not found")
+        collectionDao.update(collection.copy(updatedAt = System.currentTimeMillis()))
     }
 
     override suspend fun removeMovieFromCollection(collectionId: String, movieId: Int): Result<Unit> = runCatching {
         collectionMovieDao.delete(collectionId, movieId)
         val currentIds = collectionMovieDao.getMovieIds(collectionId)
         collectionMovieDao.reorderMovies(collectionId, currentIds)
-        collectionDao.update(collectionDao.getById(collectionId)!!.copy(updatedAt = System.currentTimeMillis()))
+        val collectionAfterRemove = collectionDao.getById(collectionId)
+            ?: throw IllegalStateException("Collection $collectionId not found")
+        collectionDao.update(collectionAfterRemove.copy(updatedAt = System.currentTimeMillis()))
     }
 
     override suspend fun reorderMoviesInCollection(collectionId: String, movieIds: List<Int>): Result<Unit> = runCatching {
         collectionMovieDao.reorderMovies(collectionId, movieIds)
-        collectionDao.update(collectionDao.getById(collectionId)!!.copy(updatedAt = System.currentTimeMillis()))
+        val collectionToReorder = collectionDao.getById(collectionId)
+            ?: throw IllegalStateException("Collection $collectionId not found")
+        collectionDao.update(collectionToReorder.copy(updatedAt = System.currentTimeMillis()))
     }
 
     override suspend fun getPublicCollections(): Result<List<Collection>> = runCatching {
-        collectionDao.getPublicCollections(limit = 50).map { entity ->
+        collectionDao.getPublicCollections(limit = PUBLIC_COLLECTIONS_LIMIT).map { entity ->
             val movieIds = collectionMovieDao.getMovieIds(entity.id)
             entity.toDomain(movieIds)
         }

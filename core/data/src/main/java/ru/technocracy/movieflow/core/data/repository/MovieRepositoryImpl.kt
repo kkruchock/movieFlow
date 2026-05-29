@@ -12,56 +12,40 @@ import javax.inject.Inject
 import kotlin.collections.map
 import kotlin.time.Duration.Companion.hours
 
-// реализация репозиитория (с кешом)
 class MovieRepositoryImpl @Inject constructor(
     private val api: MovieApi,
     private val movieDao: MovieDao
 ) : MovieRepository {
 
-    private val cacheTtl = 24.hours.inWholeMilliseconds
+    companion object {
+        private val CACHE_TTL_MS = 24.hours.inWholeMilliseconds
+    }
 
     override suspend fun getPopularMovies(): Result<List<Movie>> = runCatching {
         val now = System.currentTimeMillis()
         val cached = movieDao.getAll()
-        val isCacheValid = cached.isNotEmpty() && (now - cached.first().cachedAt) < cacheTtl
+        val isCacheValid = cached.isNotEmpty() && (now - cached.first().cachedAt) < CACHE_TTL_MS
 
         if (isCacheValid) {
-            return@runCatching cached.map {
-                it.toDomain()
-            }
+            return@runCatching cached.map { it.toDomain() }
         }
 
-        // кэш невалид - делаем запрос
-        val response = api.getPopularMovies(page = 1) // для главной страницы всегда 1
-        val entities = response.items.map {
-            it.toEntity()
-        }
+        val response = api.getPopularMovies()
+        val entities = response.items.map { it.toEntity() }
 
-        // обновляем кэш и чистим просроченные записи
-        movieDao.deleteExpired(now - cacheTtl)
+        movieDao.deleteExpired(now - CACHE_TTL_MS)
         movieDao.insertAll(entities)
 
-        entities.map {
-            it.toDomain()
-        }
+        entities.map { it.toDomain() }
     }
 
     override suspend fun getMovieDetails(id: Int): Result<MovieDetails> = runCatching {
         val cached = movieDao.getById(id)
-        val isFullDetailsCached = cached != null
-                && cached.description != null
-                && (System.currentTimeMillis() - cached.cachedAt) < cacheTtl
-
-        if (isFullDetailsCached) {
+        if (cached != null && cached.description != null && (System.currentTimeMillis() - cached.cachedAt) < CACHE_TTL_MS) {
             return@runCatching cached.toDetails()
         }
-
         val dto = api.getMovieDetails(id)
-        val entity = dto.toEntity()
-
-        movieDao.insert(entity)
-
-        entity.toDetails()
+        dto.toEntity().toDetails()
     }
 
     override suspend fun searchMovies(query: String): Result<List<Movie>> = runCatching {

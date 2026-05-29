@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screen_search">Поиск</string>
+    <string name="hint_search">Поиск фильмов и сериалов</string>
+    <string name="section_popular_movies">Популярные фильмы</string>
+    <string name="search_empty_title">Ничего не найдено</string>
+    <string name="search_empty_subtitle">Попробуйте изменить запрос</string>
+    <string name="cd_clear">Очистить</string>
+    <string name="action_back">Назад</string>
+</resources>

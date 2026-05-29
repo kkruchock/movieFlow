@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="screen_profile">Профиль</string>
+    <string name="profile_favorites">Избранное</string>
+    <string name="profile_watchlist">Буду смотреть</string>
+    <string name="profile_watched">Просмотренные</string>
+    <string name="profile_rated">Мои оценки</string>
+    <string name="action_logout">Выйти</string>
+    <string name="list_empty">Здесь пока пусто</string>
+</resources>

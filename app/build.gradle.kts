@@ -60,6 +60,9 @@ dependencies {
 
     implementation(libs.compose.bom)
     implementation(libs.navigation.compose)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.icons.extended)
     implementation(libs.lifecycle.viewmodel.compose)
 
     implementation(libs.dagger)

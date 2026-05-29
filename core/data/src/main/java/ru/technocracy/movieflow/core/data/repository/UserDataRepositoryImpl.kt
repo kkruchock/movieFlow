@@ -52,4 +52,8 @@ class UserDataRepositoryImpl @Inject constructor(
             it.copy(rating = validRating)
         }
     }
+
+    override suspend fun getAllUserMovieActions(): Result<List<UserMovieAction>> = runCatching {
+        userMovieDao.getAll(currentUserId).map { it.toDomain() }
+    }
 }

@@ -16,6 +16,10 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
+    companion object {
+        private const val BASE_URL = "https://kinopoiskapiunofficial.tech/api/"
+    }
+
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -46,7 +50,7 @@ class NetworkModule {
         }
 
         return Retrofit.Builder()
-            .baseUrl("https://kinopoiskapiunofficial.tech/api/") //todo хардкод
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()

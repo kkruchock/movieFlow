@@ -29,10 +29,9 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.material3)
     implementation(libs.compose.ui)
-    implementation(libs.compose.preview)
     implementation(libs.navigation.compose)
     implementation(libs.lifecycle.viewmodel.compose)
-    implementation(libs.coroutines.android)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    implementation(libs.compose.icons.extended)
 }

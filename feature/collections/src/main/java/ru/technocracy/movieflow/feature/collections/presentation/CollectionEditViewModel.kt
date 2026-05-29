@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.technocracy.movieflow.core.ui.UiText
 import ru.technocracy.movieflow.core.domain.model.MovieDetails
+import ru.technocracy.movieflow.feature.collections.R
 import ru.technocracy.movieflow.core.domain.usecase.collection.AddMovieToCollectionUseCase
 import ru.technocracy.movieflow.core.domain.usecase.collection.CreateCollectionUseCase
 import ru.technocracy.movieflow.core.domain.usecase.collection.GetCollectionUseCase
@@ -58,7 +60,7 @@ class CollectionEditViewModel(
                     }
                 }
                 .onFailure { error ->
-                    _uiState.update { it.copy(isLoading = false, error = error.message) }
+                    _uiState.update { it.copy(isLoading = false, error = error.message as UiText?) }
                 }
         }
     }
@@ -77,7 +79,7 @@ class CollectionEditViewModel(
             }
             val currentId = savedCollectionId ?: return@launch
             addMovie(currentId, movieId).onFailure { error ->
-                _uiState.update { it.copy(error = error.message) }
+                _uiState.update { it.copy(error = error.message as UiText?) }
             }
         }
     }
@@ -87,7 +89,7 @@ class CollectionEditViewModel(
         val currentId = savedCollectionId ?: return
         viewModelScope.launch {
             removeMovie(currentId, movieId).onFailure { error ->
-                _uiState.update { it.copy(error = error.message) }
+                _uiState.update { it.copy(error = error.message as UiText?) }
             }
         }
     }
@@ -103,7 +105,7 @@ class CollectionEditViewModel(
     fun save() {
         val state = _uiState.value
         if (state.name.isBlank()) {
-            _uiState.update { it.copy(error = "Название не может быть пустым") }
+            _uiState.update { it.copy(error = UiText.Resource(R.string.error_collection_name_blank)) }
             return
         }
         viewModelScope.launch {
@@ -123,11 +125,14 @@ class CollectionEditViewModel(
                             state.description.trim().ifEmpty { null },
                             state.isPublic,
                             state.movies.map { it.id }
-                        )
+                        ).onFailure { error ->
+                            _uiState.update { it.copy(isSaving = false, error = error.message as UiText?) }
+                            return@launch
+                        }
                     }
                     _uiState.update { it.copy(isSaving = false, saved = true) }
                 }.onFailure { error ->
-                    _uiState.update { it.copy(isSaving = false, error = error.message) }
+                    _uiState.update { it.copy(isSaving = false, error = error.message as UiText?) }
                 }
             } else {
                 updateCollection(
@@ -139,7 +144,7 @@ class CollectionEditViewModel(
                 ).onSuccess {
                     _uiState.update { it.copy(isSaving = false, saved = true) }
                 }.onFailure { error ->
-                    _uiState.update { it.copy(isSaving = false, error = error.message) }
+                    _uiState.update { it.copy(isSaving = false, error = error.message as UiText?) }
                 }
             }
         }

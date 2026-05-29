@@ -52,9 +52,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import ru.technocracy.movieflow.feature.collections.R
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -108,7 +110,7 @@ fun CollectionEditScreen(
             confirmButton = {
                 TextButton(onClick = viewModel::clearError) { Text("OK") }
             },
-            text = { Text(state.error.orEmpty()) }
+            text = { Text(state.error?.asString() ?: "") }
         )
     }
 
@@ -116,11 +118,12 @@ fun CollectionEditScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(if (state.isEditMode) "Редактировать подборку" else "Новая подборка")
+                    Text(if (state.isEditMode) stringResource(R.string.title_edit_collection)
+                         else stringResource(R.string.title_new_collection))
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(ru.technocracy.movieflow.core.ui.R.string.action_back))
                     }
                 }
             )
@@ -141,7 +144,7 @@ fun CollectionEditScreen(
                             color = MaterialTheme.colorScheme.onPrimary
                         )
                     } else {
-                        Text("Сохранить")
+                        Text(stringResource(ru.technocracy.movieflow.core.ui.R.string.action_save))
                     }
                 }
             }
@@ -175,7 +178,7 @@ fun CollectionEditScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Обложка",
+                            text = stringResource(R.string.collection_cover_placeholder),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                         )
@@ -186,7 +189,7 @@ fun CollectionEditScreen(
                     OutlinedTextField(
                         value = state.name,
                         onValueChange = viewModel::onNameChange,
-                        label = { Text("Название *") },
+                        label = { Text(stringResource(R.string.label_collection_name)) },
                         singleLine = true,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -198,7 +201,7 @@ fun CollectionEditScreen(
                     OutlinedTextField(
                         value = state.description,
                         onValueChange = viewModel::onDescriptionChange,
-                        label = { Text("Описание") },
+                        label = { Text(stringResource(R.string.label_collection_description)) },
                         minLines = 3,
                         maxLines = 5,
                         modifier = Modifier
@@ -217,11 +220,11 @@ fun CollectionEditScreen(
                     ) {
                         Column {
                             Text(
-                                text = "Публичная подборка",
+                                text = stringResource(R.string.label_public_collection),
                                 style = MaterialTheme.typography.bodyLarge
                             )
                             Text(
-                                text = "Другие пользователи смогут её видеть",
+                                text = stringResource(R.string.hint_public_collection),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -243,7 +246,7 @@ fun CollectionEditScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Фильмы",
+                            text = stringResource(R.string.section_movies),
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
@@ -263,7 +266,7 @@ fun CollectionEditScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "Нет добавленных фильмов",
+                                text = stringResource(R.string.no_movies_in_collection),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -304,7 +307,7 @@ fun CollectionEditScreen(
                             modifier = Modifier.size(18.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Добавить фильм")
+                        Text(stringResource(R.string.action_add_movie))
                     }
                 }
             }
@@ -368,7 +371,7 @@ private fun MovieCollectionItem(
             IconButton(onClick = onRemove) {
                 Icon(
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Удалить",
+                    contentDescription = stringResource(ru.technocracy.movieflow.core.ui.R.string.action_delete),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -378,7 +381,7 @@ private fun MovieCollectionItem(
             ) {
                 Icon(
                     imageVector = Icons.Default.Menu,
-                    contentDescription = "Перетащить",
+                    contentDescription = stringResource(R.string.cd_drag_handle),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

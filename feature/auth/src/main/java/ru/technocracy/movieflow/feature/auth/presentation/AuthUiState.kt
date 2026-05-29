@@ -1,9 +1,10 @@
 package ru.technocracy.movieflow.feature.auth.presentation
 
-// состяония экрана авторизации
+import ru.technocracy.movieflow.core.ui.UiText
+
 sealed interface AuthUiState {
     object Idle : AuthUiState
     object Loading : AuthUiState
     object NavigateToHome : AuthUiState
-    data class Error(val message: String) : AuthUiState
+    data class Error(val message: UiText) : AuthUiState
 }

@@ -5,9 +5,9 @@ import ru.technocracy.movieflow.core.network.dto.SearchFilmDto
 
 fun SearchFilmDto.toDomain(): Movie = Movie(
     id = filmId,
-    title = nameRu ?: nameEn ?: "Без названия",
+    title = nameRu ?: nameEn ?: "",
     titleEn = nameEn,
-    rating = null, // API отдает мусор
+    rating = null,
     year = year?.toIntOrNull(),
     posterUrl = posterUrl,
     posterUrlPreview = posterUrlPreview,

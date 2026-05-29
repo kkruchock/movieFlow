@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.technocracy.feature.profile"
+    namespace = "ru.technocracy.movieflow.feature.profile"
     compileSdk = 35
 
     defaultConfig {
@@ -43,4 +43,7 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    implementation(libs.coroutines.android)
+    implementation(libs.coil.compose)
+    implementation(libs.compose.icons.extended)
 }
